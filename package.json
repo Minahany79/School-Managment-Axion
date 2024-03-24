@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "nodemon app.js",
-    "start:prod": "pm2 delete sms && pm2 start --name sms \"nodemon app.js\""
+    "start:prod": "pm2 start --name sms \"nodemon app.js\""
   },
   "author": "",
   "license": "ISC",
