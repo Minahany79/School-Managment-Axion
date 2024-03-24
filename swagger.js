@@ -11,9 +11,9 @@ const swaggerDocument = {
     },
   },
   host:
-    config.dotEnv.NODE_ENV === "production" || config.dotEnv.NODE_ENV === "prod"
-      ? `${config.dotEnv.DEPLOYMENT_HOST}:${config.dotEnv.PORT}`
-      : `${config.dotEnv.host}:${config.PORT}`,
+    config.dotEnv.ENV === "production" || config.dotEnv.ENV === "prod"
+      ? `${config.dotEnv.DEPLOYMENT_HOST}:${config.dotEnv.USER_PORT}`
+      : `${config.dotEnv.HOST}:${config.USER_PORT}`,
 
   paths: {
     "/api/users/login": {
