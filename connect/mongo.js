@@ -4,7 +4,10 @@ mongoose.Promise = global.Promise;
 
 module.exports = ({ uri }) => {
   //database connection
-  mongoose.connect(uri);
+  mongoose.connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 
   // When successfully connected
   mongoose.connection.on("connected", function () {
