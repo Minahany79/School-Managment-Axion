@@ -26,6 +26,7 @@ const LONG_TOKEN_SECRET = process.env.LONG_TOKEN_SECRET || null;
 const SHORT_TOKEN_SECRET = process.env.SHORT_TOKEN_SECRET || null;
 const NACL_SECRET = process.env.NACL_SECRET || null;
 const HOST = process.env.HOST || null;
+const DEPLOYMENT_HOST = process.env.DEPLOYMENT_HOST || null;
 const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS);
 
 if (!LONG_TOKEN_SECRET || !SHORT_TOKEN_SECRET || !NACL_SECRET) {
@@ -49,7 +50,8 @@ config.dotEnv = {
   LONG_TOKEN_SECRET,
   SHORT_TOKEN_SECRET,
   SALT_ROUNDS,
-  HOST
+  HOST,
+  DEPLOYMENT_HOST
 };
 
 module.exports = config;

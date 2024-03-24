@@ -10,7 +10,10 @@ const swaggerDocument = {
       url: "https://opensource.org/licenses/MIT",
     },
   },
-  host: `${config.dotEnv.HOST}:${config.dotEnv.USER_PORT}`,
+  host:
+    config.dotEnv.NODE_ENV === "production" || config.dotEnv.NODE_ENV === "prod"
+      ? `${config.dotEnv.DEPLOYMENT_HOST}:${config.dotEnv.PORT}`
+      : `${config.dotEnv.host}:${config.PORT}`,
 
   paths: {
     "/api/users/login": {
