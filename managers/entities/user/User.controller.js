@@ -77,12 +77,30 @@ class UserController {
   }
 
   async getAllUsers(req, res) {
-    const usersInDb = await User.find()
-      .select("-password")
-      .populate("userGroup");
+    const userGroupName = req.query.userGroupName;
+    
+    let query;
+
+    if (userGroupName) {
+      query = User.find()
+        .select("-password")
+        .populate({
+          path: "userGroup",
+          match: { name: userGroupName },
+        })
+        .populate("school");
+    } else {
+      query = User.find().select("-password").populate("userGroup school");
+    }
+
+    const usersInDb = await query.exec();
+
+    // Filter out users whose userGroup is null (i.e., no match found)
+    const filteredUsers = usersInDb.filter((user) => user.userGroup != null);
+
     return {
       data: {
-        users: usersInDb,
+        users: filteredUsers,
       },
     };
   }
@@ -120,6 +138,7 @@ class UserController {
       password: hashedPassword,
       email: req.body.email.toLowerCase(),
       userGroup: await this.addUserAsRole(role),
+      school: role == "Student" ? req.body.schoolId : undefined,
     };
 
     const newUser = new User(userDto);

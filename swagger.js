@@ -13,7 +13,7 @@ const swaggerDocument = {
   host:
     config.dotEnv.ENV === "production" || config.dotEnv.ENV === "prod"
       ? `${config.dotEnv.DEPLOYMENT_HOST}:${config.dotEnv.USER_PORT}`
-      : `${config.dotEnv.HOST}:${config.USER_PORT}`,
+      : `${config.dotEnv.HOST}:${config.dotEnv.USER_PORT}`,
 
   paths: {
     "/api/users/login": {
@@ -64,7 +64,7 @@ const swaggerDocument = {
     "/api/users/student-register": {
       post: {
         tags: ["Users"],
-        summary: "Register student",
+        summary: "Register student in the school",
         consumes: ["application/json"],
         parameters: [
           {
@@ -77,10 +77,13 @@ const swaggerDocument = {
                 email: {
                   type: "string",
                 },
-                password: {
+                username: {
                   type: "string",
                 },
-                username: {
+                schoolId: {
+                  type: "string",
+                },
+                password: {
                   type: "string",
                 },
               },
@@ -113,7 +116,7 @@ const swaggerDocument = {
     "/api/users/school-admin-register": {
       post: {
         tags: ["Users"],
-        summary: "Register student",
+        summary: "Create school admin",
         consumes: ["application/json"],
         parameters: [
           {
@@ -126,10 +129,10 @@ const swaggerDocument = {
                 email: {
                   type: "string",
                 },
-                password: {
+                username: {
                   type: "string",
                 },
-                username: {
+                password: {
                   type: "string",
                 },
               },
@@ -162,7 +165,7 @@ const swaggerDocument = {
     "/api/users/admin-register": {
       post: {
         tags: ["Users"],
-        summary: "Register student",
+        summary: "Create Super Admin",
         consumes: ["application/json"],
         parameters: [
           {
@@ -175,10 +178,10 @@ const swaggerDocument = {
                 email: {
                   type: "string",
                 },
-                password: {
+                username: {
                   type: "string",
                 },
-                username: {
+                password: {
                   type: "string",
                 },
               },
@@ -337,53 +340,13 @@ const swaggerDocument = {
     "/api/users/get-users": {
       get: {
         tags: ["Users"],
-        summary: "Get users logged in user",
-        responses: {
-          200: {
-            description: "ok",
-          },
-          400: {
-            description: "bad request",
-          },
-          401: {
-            description: "Un Authorized",
-          },
-          403: {
-            description: "Forbidden",
-          },
-
-          404: {
-            description: "Not Found",
-          },
-          500: {
-            description: "internal server error",
-          },
-        },
-      },
-      post: {
-        tags: ["Users"],
-        consumes: ["application/json"],
+        summary: "Get all users logged in system",
         parameters: [
           {
-            in: "body",
-            name: "search",
-            schema: {
-              type: "object",
-              properties: {
-                ids: {
-                  type: "array",
-                  items: {
-                    type: "integer",
-                  },
-                },
-                userName: {
-                  type: "string",
-                },
-                email: {
-                  type: "string",
-                },
-              },
-            },
+            in: "query",
+            name: "userGroupName",
+            enum: ["Student", "SuperAdmin", "SchoolAdmin"],
+            description: "Filter users by user group name",
           },
         ],
         responses: {

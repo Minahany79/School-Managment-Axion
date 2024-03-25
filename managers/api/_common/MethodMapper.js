@@ -20,6 +20,7 @@ const {
 } = require("../../entities/classroom/Classroom.validator");
 const {
   createUserValidator,
+  createStudentValidator,
   updateUserValidator,
   changePasswordValidator,
   deleteUserValidator,
@@ -33,7 +34,7 @@ module.exports = {
 
   "student-register": [
     authenticationAndAuthorizationMiddleware(["SuperAdmin", "SchoolAdmin"]),
-    handelValidation(createUserValidator),
+    handelValidation(createStudentValidator),
     new UserController().registerStudent,
   ],
   "school-admin-register": [
